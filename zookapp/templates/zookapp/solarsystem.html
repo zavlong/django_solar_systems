@@ -1,0 +1,26 @@
+<!-- {% if star_list %}
+  <ul>
+  {% for star in star_list_view %}
+    <li>
+      <a href="">{{star.name}}</a>
+    </li>
+  {% endfor %}
+</ul>
+{% else %}
+  <p>No stars available</p>
+{% endif %} -->
+<h1>{{ solar_system.name }}</h1>
+<ul>
+{% for star in star_list %}
+    <li><h3>{{ star.name }}:</h3></li>
+    <ul>
+      <li>Orbital radius: {{ star.orbital_radius_in_au }} au</li>
+      <li>Orbital period: {{ star.orbital_period_in_years }} years</li>
+      <li style="background-color: {{star.star_color}}; color: {{star.text_color}}">Spectral Type: {{star.spectral_type}}</li>
+      <li>Mass: {{star.solar_masses}} Ms</li>
+      <li>Radius: {{star.solar_radii}} Rs</li>
+      <li>Temperature: {{ star.temperature_in_kelvin }} K</li>
+      <li>Luminosity: {{ star.solar_luminosities }} Ls</li>
+    </ul>
+{% endfor %}
+</ul>
