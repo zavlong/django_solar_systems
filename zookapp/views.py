@@ -4,6 +4,7 @@ from django.views.generic import View
 from django.template import loader
 from .models import *
 
+
 # Create your views here.
 def star_color_gen(tempk):
     if tempk in range(0,102):
@@ -51,7 +52,7 @@ def star_color_gen(tempk):
         text_color = "#000"
         return star_color, text_color
     else:
-        star_color = "#88f"
+        star_color = "#88planetf"
         text_color = "#000"
         return star_color, text_color
 
@@ -73,7 +74,13 @@ def solar_system(request, solarsystem_id):
         s.star_color = star_color_gen(s.temperature_in_kelvin)[0]
         s.text_color = star_color_gen(s.temperature_in_kelvin)[1]
 
-
-
-
     return render(request, 'zookapp/solarsystem.html', {'solar_system': solar_system, 'star_list': star_list})
+
+def star(request, solarsystem_id, star_id):
+    return render(request, 'zookapp/star.html')
+
+def planet(request, solarsystem_id, star_id, planet_id):
+    return render(request, 'zookapp/planet.html')
+
+def edit_planet(request, solarsystem_id, star_id, planet_id):
+    return render(request, 'zookapp/edit_planet.html')

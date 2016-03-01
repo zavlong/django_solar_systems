@@ -47,7 +47,7 @@ class Planet(models.Model):
     earth_radii = models.DecimalField(decimal_places=3, max_digits=7, default=1)
     earth_masses = models.DecimalField(decimal_places=3, max_digits=13, default=1)
     temperature_in_kelvin = models.IntegerField(default=273)
-    stars = models.ManyToManyField('Star')
+    star = models.ForeignKey('Star', on_delete=models.CASCADE, blank=True, null=True)
     species = models.ManyToManyField('Species')
     percentage_of_water = models.IntegerField(blank=True, null=True)
     planet_type = models.ForeignKey('PlanetType', on_delete=models.CASCADE, blank=True, null=True)
@@ -56,7 +56,7 @@ class Planet(models.Model):
         return self.name
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('orbital_radius_in_au',)
 
 class Species(models.Model):
     name = models.CharField(max_length=200)
