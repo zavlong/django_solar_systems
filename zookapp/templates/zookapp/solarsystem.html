@@ -10,7 +10,8 @@
   <p>No stars available</p>
 {% endif %} -->
 <h1>{{ solar_system.name }}</h1>
-<h3>Distance from Sol: {{solar_system.distance}} ly</h1>
+<h3>Distance from Sol: {{solar_system.distance}} ly<br>
+Security: {{solar_system.security}}</h3>
 <ul>
 {% for star in star_list %}
     <li><h3>{{ star.name }}:</h3></li>
@@ -79,6 +80,12 @@
                       <li>Type: {{station.station_type}}</li>
                       <li>Population: {{station.population}}</li>
                       <li>Economy: {{station.economy}}</li>
+                      <li><b>Services:</b></li>
+                      <ul>
+                      {% for service in station.services.all %}
+                        <li>{{service.name}}</li>
+                      {% endfor %}
+                      </ul>
                     </ul>
                 {% endfor %}
               </ul>

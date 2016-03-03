@@ -10,6 +10,7 @@ class SolarSystem(models.Model):
     x_coord = models.DecimalField(decimal_places=3, max_digits=20)
     y_coord = models.DecimalField(decimal_places=3, max_digits=20)
     z_coord = models.DecimalField(decimal_places=3, max_digits=20)
+    security = models.ForeignKey('SystemSecurity', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -83,6 +84,7 @@ class Station(models.Model):
     station_type = models.ForeignKey('StationType', on_delete=models.CASCADE, blank=True, null=True)
     population = models.BigIntegerField(default=1000)
     economy = models.ForeignKey('StationEconomy', on_delete=models.CASCADE, blank=True, null=True)
+    services = models.ManyToManyField('StationService')
 
     class Meta:
         ordering = ('-population',)
@@ -95,7 +97,17 @@ class StationType(models.Model):
     def __str__(self):
         return self.name
 
+class SystemSecurity(models.Model):
+    name = models.CharField(max_length=200)
+    def __str__(self):
+        return self.name
+
 class StationEconomy(models.Model):
+    name = models.CharField(max_length=200)
+    def __str__(self):
+        return self.name
+
+class StationService(models.Model):
     name = models.CharField(max_length=200)
     def __str__(self):
         return self.name
