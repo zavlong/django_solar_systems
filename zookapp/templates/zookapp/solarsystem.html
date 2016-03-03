@@ -10,6 +10,7 @@
   <p>No stars available</p>
 {% endif %} -->
 <h1>{{ solar_system.name }}</h1>
+<h3>Distance from Sol: {{solar_system.distance}} ly</h1>
 <ul>
 {% for star in star_list %}
     <li><h3>{{ star.name }}:</h3></li>
@@ -34,7 +35,43 @@
           {% if planet.percentage_of_water %}
             <li>Percentage of Water: {{planet.percentage_of_water}}</li>
           {% endif %}
+
+          <!-- Gas giants and molten planets cannot have any species -->
+          {% if 'giant' in planet.planet_type.name %}
+          {% elif 'Molten' in planet.planet_type.name %}
+          {% elif 'Jupiter' in planet.planet_type.name %}
+          {% elif 'Neptune' in planet.planet_type.name %}
+          {% elif 'Gas' in planet.planet_type.name %}
+          {% else %}
+          <li>
+            <b>Species:</b>
+
+          <!-- If there are no species, do not add a list -->
+          {% for species in planet.species.all %}
+          {% if 'none' in species.name %}
+          none
+        </li>
+          {% else %}
+
+          <!-- List species -->
+          <ul>
+          <li>
+            {{species.name}} - {{species.species_type}}
+          </li>
+          </ul>
+          {%endif%}
+          {% endfor %}
+          {%endif%}
+
           <li>Planet Type: {{planet.planet_type}}</li>
+          <!-- Display if a planet is colonized -->
+            {% for species in planet.species.all %}
+              {% if "Human" in species.name %}
+                <li><b>Colonized</b></li>
+                <li>Population: {{planet.population}}</li>
+              {% endif %}
+            {% endfor %}
+
         </ul>
         {% endfor %}
       </ul>

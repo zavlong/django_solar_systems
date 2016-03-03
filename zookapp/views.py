@@ -7,31 +7,31 @@ from .models import *
 
 # Create your views here.
 def star_color_gen(tempk):
-    if tempk in range(0,102):
+    if tempk in range(0,277):
         star_color = "#000"
         text_color = "#fff"
         return star_color, text_color
-    elif tempk in range(100,502):
+    elif tempk in range(275,502):
         star_color = "#726"
         text_color = "#fff"
         return star_color, text_color
-    elif tempk in range(500,1502):
+    elif tempk in range(500,1402):
         star_color = "#a24"
         text_color = "#fff"
         return star_color, text_color
-    elif tempk in range(1500,2252):
+    elif tempk in range(1400,2502):
         star_color = "#e02"
         text_color = "#fff"
         return star_color, text_color
-    elif tempk in range(2250, 3902):
-        star_color = "#f60"
+    elif tempk in range(2500, 4002):
+        star_color = "#f50"
         text_color = "#fff"
         return star_color, text_color
-    elif tempk in range(3900, 5002):
+    elif tempk in range(4000, 5102):
         star_color = "#fa0"
         text_color = "#000"
         return star_color, text_color
-    elif tempk in range(5000, 6002):
+    elif tempk in range(5100, 6002):
         star_color = "#ff0"
         text_color = "#000"
         return star_color, text_color

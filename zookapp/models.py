@@ -14,6 +14,9 @@ class SolarSystem(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ('distance',)
+
 class SpectralType(models.Model):
     name = models.CharField(max_length=200)
 
@@ -51,6 +54,7 @@ class Planet(models.Model):
     species = models.ManyToManyField('Species')
     percentage_of_water = models.IntegerField(blank=True, null=True)
     planet_type = models.ForeignKey('PlanetType', on_delete=models.CASCADE, blank=True, null=True)
+    population = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.name
