@@ -54,7 +54,9 @@ class Planet(models.Model):
     species = models.ManyToManyField('Species')
     percentage_of_water = models.IntegerField(blank=True, null=True)
     planet_type = models.ForeignKey('PlanetType', on_delete=models.CASCADE, blank=True, null=True)
-    population = models.IntegerField(blank=True, null=True)
+    population = models.BigIntegerField(blank=True, null=True)
+    economy = models.ForeignKey('StationEconomy', on_delete=models.CASCADE, blank=True, null=True)
+
 
     def __str__(self):
         return self.name
@@ -70,6 +72,31 @@ class Species(models.Model):
     species_type = models.ForeignKey('SpeciesType', on_delete=models.CASCADE, blank=True, null=True)
     conservation_type = models.ForeignKey('ConservationType', on_delete=models.CASCADE, blank=True, null=True)
 
+
+
+    def __str__(self):
+        return self.name
+
+class Station(models.Model):
+    name = models.CharField(max_length=200)
+    planet = models.ForeignKey('Planet', on_delete=models.CASCADE, blank=True, null=True)
+    station_type = models.ForeignKey('StationType', on_delete=models.CASCADE, blank=True, null=True)
+    population = models.BigIntegerField(default=1000)
+    economy = models.ForeignKey('StationEconomy', on_delete=models.CASCADE, blank=True, null=True)
+
+    class Meta:
+        ordering = ('-population',)
+
+    def __str__(self):
+        return self.name
+
+class StationType(models.Model):
+    name = models.CharField(max_length=200)
+    def __str__(self):
+        return self.name
+
+class StationEconomy(models.Model):
+    name = models.CharField(max_length=200)
     def __str__(self):
         return self.name
 

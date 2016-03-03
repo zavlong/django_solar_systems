@@ -69,8 +69,24 @@
               {% if "Human" in species.name %}
                 <li><b>Colonized</b></li>
                 <li>Population: {{planet.population}}</li>
+                <li>Economy: {{planet.economy}}</li>
+                {% if planet.station_set.all %}
+                <li><b>Stations:</b></li>
+                <ul>
+                {% for station in planet.station_set.all %}
+                    <li><b>{{station.name}}</b></li>
+                    <ul>
+                      <li>Type: {{station.station_type}}</li>
+                      <li>Population: {{station.population}}</li>
+                      <li>Economy: {{station.economy}}</li>
+                    </ul>
+                {% endfor %}
+              </ul>
+                {% endif%}
+
               {% endif %}
             {% endfor %}
+
 
         </ul>
         {% endfor %}
