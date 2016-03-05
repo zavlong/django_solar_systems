@@ -49,7 +49,7 @@ def star_color_gen(tempk):
         return star_color, text_color
     elif tempk in range(25000, 150000):
         star_color = "#19f"
-        text_color = "#000"
+        text_color = "#fff"
         return star_color, text_color
     else:
         star_color = "#88planetf"

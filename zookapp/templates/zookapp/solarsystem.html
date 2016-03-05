@@ -23,6 +23,7 @@ Security: {{solar_system.security}}</h3>
       <li>Radius: {{star.solar_radii}} Rs</li>
       <li>Temperature: {{ star.temperature_in_kelvin }} K</li>
       <li>Luminosity: {{ star.solar_luminosities }} Ls</li>
+      <li>Magnitude: {{star.visual_magnitude}} </li>
       {% if star.planet_set.all %}
       <li><b>Planets:</b></li>
       <ul> {% for planet in star.planet_set.all %}

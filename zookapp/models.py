@@ -34,6 +34,7 @@ class Star(models.Model):
     solar_luminosities = models.DecimalField(decimal_places=3, max_digits=13, default=1)
     solar_system = models.ForeignKey('SolarSystem', on_delete=models.CASCADE, blank=True, null=True)
     spectral_type = models.ForeignKey('SpectralType', on_delete=models.CASCADE, blank=True, null=True)
+    visual_magnitude = models.DecimalField(decimal_places=2, max_digits=4, default=5)
     star_color = ""
     text_color = ""
 
