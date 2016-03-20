@@ -1,8 +1,17 @@
 {% if star_list %}
   <ul>
+  <table>
+    <tr>
+      {% for allegiance in allegiance_list %}
+        <td style="background-color: #{{allegiance.color}}">{{allegiance.abbreviation}}</td>
+      {% endfor %}
+      <td style="background-color: #fff">Uninhabited</td>
+    </tr>
+  </table>
+  <br>
   {% for star in star_list %}
-    <li>
-      <a href="/solar_system/{{star.id}}/">{{star.name}}</a>
+    <li style="background-color: #{{star.allegiance.color}}">
+      <a href="/solar_system/{{star.id}}/">{{star.name}}</a> - {{star.distance}} ly {% if 'Y' in star.permit.name %}- Requires {{star.name}} permit {% endif %}
     </li>
   {% endfor %}
 </ul>

@@ -11,7 +11,15 @@
 {% endif %} -->
 <h1>{{ solar_system.name }}</h1>
 <h3>Distance from Sol: {{solar_system.distance}} ly<br>
-Security: {{solar_system.security}}</h3>
+Security: {{solar_system.security}}<br>
+Allegiance: {{solar_system.allegiance}}<br>
+Faction: {{solar_system.faction}}<br>
+{% if 'Y' in solar_system.permit.name %}
+Requires {{solar_system.name}} permit
+{% endif %}</h3>
+{% if solar_system.image %}
+<img src="{{MEDIA_URL}}{{solar_system.image}}" height=720px>
+{% endif %}
 <ul>
 {% for star in star_list %}
     <li><h3>{{ star.name }}:</h3></li>
@@ -66,12 +74,17 @@ Security: {{solar_system.security}}</h3>
           {%endif%}
 
           <li>Planet Type: {{planet.planet_type}}</li>
+          {% if planet.ring_type %}
+          <li>Rings: {{planet.ring_type}}</li>
+          {% endif %}
           <!-- Display if a planet is colonized -->
             {% for species in planet.species.all %}
-              {% if "Human" in species.name %}
-                <li><b>Colonized</b></li>
+              {% if species.is_it_spacefaring %}
+                <li><b>Colonized by {{species.name}}s</b></li>
                 <li>Population: {{planet.population}}</li>
                 <li>Economy: {{planet.economy}}</li>
+                <li>Government: {{planet.faction.government_type}}</li>
+                <li>Controlling faction: {{planet.faction.name}}</li>
                 {% if planet.station_set.all %}
                 <li><b>Stations:</b></li>
                 <ul>
@@ -81,6 +94,8 @@ Security: {{solar_system.security}}</h3>
                       <li>Type: {{station.station_type}}</li>
                       <li>Population: {{station.population}}</li>
                       <li>Economy: {{station.economy}}</li>
+                      <li>Government: {{station.faction.government_type}}</li>
+                      <li>Controlling faction: {{station.faction.name}}</li>
                       <li><b>Services:</b></li>
                       <ul>
                       {% for service in station.services.all %}

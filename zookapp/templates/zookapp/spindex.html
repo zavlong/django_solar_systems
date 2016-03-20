@@ -1,0 +1,11 @@
+{% if ship_list %}
+  <ul>
+  {% for ship in ship_list %}
+    <li>
+      <a href="/spaceship/{{ship.id}}/">{{ship.name}}</a>
+    </li>
+  {% endfor %}
+</ul>
+{% else %}
+  <p>No spaceships available</p>
+{% endif %}
