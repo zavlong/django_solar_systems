@@ -1,4 +1,34 @@
-{% if ship_list %}
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html>
+<head>
+  <title>Spaceships</title>
+  <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+  <style>
+    a {
+      color:#30f;
+    }
+    td {
+      padding: 2px;
+    }
+    h1, h2, h3, h4, h5, h6{
+      font-weight:bold;
+      line-height:30px;
+      margin-left: 10px;
+    }
+    img {
+      margin-left: 10px;
+    }
+    b{
+      padding: 0px;
+    }
+  </style>
+</head>
+<body>
+  <br>
+  {% if ship_list %}
   <ul>
   {% for ship in ship_list %}
     <li>
@@ -9,3 +39,5 @@
 {% else %}
   <p>No spaceships available</p>
 {% endif %}
+</body>
+</html>

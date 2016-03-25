@@ -1,13 +1,44 @@
-<h2>{{spaceship.name}}</h2>
-<h3>Manufacturer: {{spaceship.manufacturer}}</h3>
-<h3>Cost: ${{spaceship.cost}}</h3>
-<h3>Size: {{spaceship.size}}</h3>
-<h3>Type: {{spaceship.ship_type}}</h3>
-<h3>Agility: {{spaceship.agility}}</h3>
-<h3>Speed: {{spaceship.speed}} m/s</h3>
-<h3>Boost speed: {{spaceship.boost}} m/s</h3>
-<h3>Jump range: {{spaceship.jump_range}} ly</h3>
-<h3>Hardpoints: {{spaceship.hardpoints}}</h3>
-<h3>Internal compartments: {{spaceship.compartments}}</h3>
-<h3>Cargo space: {{spaceship.cargo_space}}t</h3>
-<h3>Fuel space: {{spaceship.fuel_space}}t</h3>
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html>
+<head>
+  <title>{{spaceship.name}} spaceship</title>
+  <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+  <style>
+    a {
+      color:#30f;
+    }
+    td {
+      padding: 2px;
+    }
+    h1, h2, h3, h4, h5, h6{
+      font-weight:bold;
+      line-height:30px;
+      margin-left: 10px;
+    }
+    img {
+      margin-left: 10px;
+    }
+    b{
+      padding: 0px;
+    }
+  </style>
+</head>
+<body>
+<h2>{{spaceship.name}}</h2><br>
+<h4>Manufacturer: {{spaceship.manufacturer}}</h4>
+<h4>Cost: ${{spaceship.cost}}</h4>
+<h4>Size: {{spaceship.size}}</h4>
+<h4>Type: {{spaceship.ship_type}}</h4>
+<h4>Agility: {{spaceship.agility}}</h4>
+<h4>Speed: {{spaceship.speed}} m/s</h4>
+<h4>Boost speed: {{spaceship.boost}} m/s</h4>
+<h4>Jump range: {{spaceship.jump_range}} ly</h4>
+<h4>Hardpoints: {{spaceship.hardpoints}}</h4>
+<h4>Internal compartments: {{spaceship.compartments}}</h4>
+<h4>Cargo space: {{spaceship.cargo_space}}t</h4>
+<h4>Fuel space: {{spaceship.fuel_space}}t</h4>
+</body>
+</html>

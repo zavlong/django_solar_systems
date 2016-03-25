@@ -1,22 +1,40 @@
-<!-- {% if star_list %}
-  <ul>
-  {% for star in star_list_view %}
-    <li>
-      <a href="">{{star.name}}</a>
-    </li>
-  {% endfor %}
-</ul>
-{% else %}
-  <p>No stars available</p>
-{% endif %} -->
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html>
+<head>
+  <title>{{solar_system.name}} system</title>
+  <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+  <style>
+    a {
+      color:#30f;
+    }
+    td {
+      padding: 2px;
+    }
+    h1, h2, h3, h4, h5, h6{
+      font-weight:bold;
+      line-height:30px;
+      margin-left: 10px;
+    }
+    img {
+      margin-left: 10px;
+    }
+    b{
+      padding: 0px;
+    }
+  </style>
+</head>
+<body>
 <h1>{{ solar_system.name }}</h1>
-<h3>Distance from Sol: {{solar_system.distance}} ly<br>
+<h4>Distance from Sol: {{solar_system.distance}} ly<br>
 Security: {{solar_system.security}}<br>
 Allegiance: {{solar_system.allegiance}}<br>
 Faction: {{solar_system.faction}}<br>
 {% if 'Y' in solar_system.permit.name %}
 Requires {{solar_system.name}} permit
-{% endif %}</h3>
+{% endif %}</h4>
 {% if solar_system.image %}
 <img src="{{MEDIA_URL}}{{solar_system.image}}" height=720px>
 {% endif %}
@@ -111,10 +129,12 @@ Requires {{solar_system.name}} permit
             {% endfor %}
 
 
-        </ul>
+        </ul><br>
         {% endfor %}
-      </ul>
+      </ul><br>
       {% endif %}
-    </ul>
+    </ul><hr>
 {% endfor %}
 </ul>
+</body>
+</html>
