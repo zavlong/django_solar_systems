@@ -1,15 +1,27 @@
 from django.db import models
 from mezzanine.pages.models import Page
-
+import math
 
 # Create your models here.
 
-class SolarSystem(models.Model):
+class Galaxy(models.Model):
     name = models.CharField(max_length=200)
     distance = models.DecimalField(decimal_places=3, max_digits=20)
+    reference_point = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ('distance',)
+
+class SolarSystem(models.Model):
+    name = models.CharField(max_length=200)
+    distance = models.DecimalField(decimal_places=3, max_digits=20, blank=True, null=True)
     x_coord = models.DecimalField(decimal_places=3, max_digits=20)
     y_coord = models.DecimalField(decimal_places=3, max_digits=20)
     z_coord = models.DecimalField(decimal_places=3, max_digits=20)
+    galaxy = models.ForeignKey('Galaxy', on_delete=models.CASCADE, default=1)
     security = models.ForeignKey('SystemSecurity', on_delete=models.CASCADE, blank=True, null=True)
     allegiance = models.ForeignKey('SystemAllegiance', on_delete=models.CASCADE, blank=True, null=True)
     faction = models.ForeignKey('StationFaction', on_delete=models.CASCADE, blank=True, null=True)
@@ -96,6 +108,8 @@ class Star(models.Model):
 
 
 class Planet(models.Model):
+
+
     name = models.CharField(max_length=200)
     orbital_radius_in_au = models.DecimalField(decimal_places=3, max_digits=20, default=1)
     orbital_period_in_years = models.DecimalField(decimal_places=3, max_digits=20, default=1)

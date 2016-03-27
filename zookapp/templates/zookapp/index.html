@@ -8,10 +8,13 @@
   <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
   <style>
     a {
-      color:#30f
+      color:#30f;
     }
     td {
-      padding: 2px
+      padding: 2px;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: bold;
     }
   </style>
 </head>
@@ -29,11 +32,17 @@
     </tr>
   </table>
   <br>
+  {% for galaxy in galaxies %}
+  <h4>{{galaxy.name}}, {{galaxy.distance}} ly away</h4><br>
   {% for star in star_list %}
+  {% if star.galaxy.name in galaxy.name %}
     <li style="background-color: #{{star.allegiance.color}}">
       <a href="/solar_system/{{star.id}}/">{{star.name}}</a> - {{star.distance}} ly {% if 'Y' in star.permit.name %}- Requires {{star.name}} permit {% endif %}
     </li>
+  {% endif %}
   {% endfor %}
+  <hr>
+  {% endfor%}
 </ul>
 {% else %}
   <p>No stars available</p>
