@@ -48,11 +48,11 @@ Requires {{solar_system.name}} permit
       <li>Mass: {{star.solar_masses}} Ms</li>
       <li>Radius: {{star.solar_radii}} Rs</li>
       <li>Temperature: {{ star.temperature_in_kelvin }} K</li>
-      <li>Luminosity: {{ star.solar_luminosities }} Ls</li>
+      <li>Luminosity: {{ star.luminosity }} Ls</li>
       <li>Magnitude: {{star.visual_magnitude}} </li>
       {% if star.planet_set.all %}
       <li><b>Planets:</b></li>
-      <ul> {% for planet in star.planet_set.all %}
+      <ul> {% for planet in star.planet_list %}
         <li><a href="/solar_system/{{solar_system.id}}/{{star.id}}/{{planet.id}}/details"> <b>{{planet.name}} </b> </a> | <a href="/solar_system/{{solar_system.id}}/{{star.id}}/{{planet.id}}/edit">edit </a></li>
         <ul>
           <li>Orbital radius: {{planet.orbital_radius_in_au}} au</li>

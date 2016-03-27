@@ -17,8 +17,7 @@ class Galaxy(models.Model):
 
 class SolarSystem(models.Model):
     name = models.CharField(max_length=200)
-    distance = models.DecimalField(decimal_places=3, max_digits=20, blank=True, null=True)
-    x_coord = models.DecimalField(decimal_places=3, max_digits=20)
+    x_coord = models.DecimalField(decimal_places=3, max_digits=20) #decimal_places=3,
     y_coord = models.DecimalField(decimal_places=3, max_digits=20)
     z_coord = models.DecimalField(decimal_places=3, max_digits=20)
     galaxy = models.ForeignKey('Galaxy', on_delete=models.CASCADE, default=1)
@@ -27,12 +26,15 @@ class SolarSystem(models.Model):
     faction = models.ForeignKey('StationFaction', on_delete=models.CASCADE, blank=True, null=True)
     permit = models.ForeignKey('SystemPermit',on_delete=models.CASCADE, blank=True, null=True)
     image = models.ImageField(upload_to="images/solarsystems/", blank=True, null=True)
+    planet_list = []
+
+    def _get_total(self):
+       "Returns the total"
+       return round(math.sqrt(float(self.x_coord)**2.0 + float(self.y_coord)**2.0 + float(self.z_coord)**2.0),3)
+    distance = property(_get_total)
 
     def __str__(self):
         return self.name
-
-    class Meta:
-        ordering = ('distance',)
 
 class Spaceship(models.Model):
     name = models.CharField(max_length=200)
@@ -89,16 +91,18 @@ class SpectralType(models.Model):
 class Star(models.Model):
     name = models.CharField(max_length=200)
     orbital_radius_in_au = models.DecimalField(decimal_places=3, max_digits=20, null=True)
-    orbital_period_in_years = models.DecimalField(decimal_places=3, max_digits=20, null=True)
+    orbital_period_in_years = models.DecimalField(decimal_places=3, max_digits=20, null=True) # can be calculated - kepler's 3rd law
     solar_radii = models.DecimalField(decimal_places=3, max_digits=7, default=1)
     solar_masses = models.DecimalField(decimal_places=3, max_digits=6, default=1)
     temperature_in_kelvin = models.IntegerField(default=5700)
-    solar_luminosities = models.DecimalField(decimal_places=3, max_digits=13, default=1)
     solar_system = models.ForeignKey('SolarSystem', on_delete=models.CASCADE, blank=True, null=True)
     spectral_type = models.ForeignKey('SpectralType', on_delete=models.CASCADE, blank=True, null=True)
-    visual_magnitude = models.DecimalField(decimal_places=2, max_digits=4, default=5)
-    star_color = ""
-    text_color = ""
+    visual_magnitude = models.DecimalField(decimal_places=2, max_digits=4, default=5) # can be calculated
+
+    def _get_luminosity(self):
+       "Returns the total"
+       return round((float(self.solar_radii)**2) * ((float(self.temperature_in_kelvin/5780))**4),4)
+    luminosity = property(_get_luminosity)
 
     def __str__(self):
         return self.name
@@ -108,14 +112,11 @@ class Star(models.Model):
 
 
 class Planet(models.Model):
-
-
     name = models.CharField(max_length=200)
     orbital_radius_in_au = models.DecimalField(decimal_places=3, max_digits=20, default=1)
-    orbital_period_in_years = models.DecimalField(decimal_places=3, max_digits=20, default=1)
     earth_radii = models.DecimalField(decimal_places=3, max_digits=7, default=1)
     earth_masses = models.DecimalField(decimal_places=3, max_digits=13, default=1)
-    temperature_in_kelvin = models.IntegerField(default=273)
+    temperature_in_kelvin = models.IntegerField(default=273) # can be calculated
     star = models.ForeignKey('Star', on_delete=models.CASCADE, blank=True, null=True)
     species = models.ManyToManyField('Species')
     percentage_of_water = models.IntegerField(blank=True, null=True)
@@ -124,7 +125,6 @@ class Planet(models.Model):
     population = models.BigIntegerField(blank=True, null=True)
     economy = models.ForeignKey('StationEconomy', on_delete=models.CASCADE, blank=True, null=True)
     faction = models.ForeignKey('StationFaction', on_delete=models.CASCADE, blank=True, null=True)
-
 
     def __str__(self):
         return self.name
@@ -143,12 +143,6 @@ class Species(models.Model):
 
     def __str__(self):
         return self.name
-
-# class SpeciesSpacefaring(models.Model):
-#     name = models.CharField(max_length=200)
-#
-#     def __str__(self):
-#         return self.name
 
 class Station(models.Model):
     name = models.CharField(max_length=200)
@@ -216,11 +210,6 @@ class RingType(models.Model):
 
     def __str__(self):
         return self.name
-# class StarHasPlanet(models.Model):
-#     name = models.CharField(max_length=200)
-#
-#     def __str__(self):
-#         return self.name
 
 class ConservationType(models.Model):
     name = models.CharField(max_length=200)
@@ -233,9 +222,3 @@ class SpeciesType(models.Model):
 
     def __str__(self):
         return self.name
-
-# class PlanetHasSpecies(models.Model):
-#     name = models.CharField(max_length=200)
-#
-#     def __str__(self):
-#         return self.name

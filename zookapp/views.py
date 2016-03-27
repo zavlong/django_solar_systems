@@ -58,12 +58,10 @@ def star_color_gen(tempk):
         return star_color, text_color
 
 def index(request):
-    star_list = SolarSystem.objects.order_by('distance')
+    star_list = sorted (SolarSystem.objects.all (), key = lambda p: p.distance)
     allegiance_list = SystemAllegiance.objects.order_by('id')
     galaxies = Galaxy.objects.order_by('distance')
     template = loader.get_template('zookapp/index.html')
-    for system in star_list:
-        system.distance = round(math.sqrt(((system.x_coord)**2) + ((system.y_coord)**2) + ((system.z_coord**2))),3)
     context = {
         'star_list': star_list,
         'allegiance_list': allegiance_list,
@@ -82,15 +80,15 @@ def spindex(request):
 def solar_system(request, solarsystem_id):
     solar_system = SolarSystem.objects.get(pk=solarsystem_id)
     star_list = solar_system.star_set.all()
-    solar_system.distance = round(math.sqrt(((solar_system.x_coord)**2) + ((solar_system.y_coord)**2) + ((solar_system.z_coord**2))),3)
     for s in star_list:
-        k = s.solar_masses
-        s.solar_luminosities = (float(s.solar_radii)**2) * ((float(s.temperature_in_kelvin/5780))**4)
-        s.solar_luminosities = int((s.solar_luminosities * 10000) + 0.5) / 10000.0
-        # s.orbital_period_in_years = round(math.sqrt((4*math.pi**2/(float(k)**2 * (float(s.solar_masses)))*(float(s.orbital_radius_in_au)**3))),3)
+        k = 1/s.solar_masses
+        s.orbital_period_in_years = round(math.sqrt(((float(k)**2 * (float(s.solar_masses)))*(float(s.orbital_radius_in_au)**3))),3)
         s.star_color = star_color_gen(s.temperature_in_kelvin)[0]
         s.text_color = star_color_gen(s.temperature_in_kelvin)[1]
-
+        s.planet_list = s.planet_set.all()
+        for p in s.planet_list:
+            p.orbital_period_in_years = round(math.sqrt(((float(k)**2 * (float(s.solar_masses)))*(float(p.orbital_radius_in_au)**3))),3)
+            print(p.orbital_period_in_years)
 
     return render(request, 'zookapp/solarsystem.html', {'solar_system': solar_system, 'star_list': star_list})
 
