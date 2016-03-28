@@ -24,6 +24,7 @@
     b{
       padding: 0px;
     }
+
   </style>
 </head>
 <body>
@@ -38,7 +39,7 @@ Requires {{solar_system.name}} permit
 {% if solar_system.image %}
 <img src="{{MEDIA_URL}}{{solar_system.image}}" height=720px>
 {% endif %}
-<ul>
+<table>
 {% for star in star_list %}
     <li><h3>{{ star.name }}:</h3></li>
     <ul>
@@ -69,9 +70,6 @@ Requires {{solar_system.name}} permit
           {% elif 'Molten' in planet.planet_type.name %}
           {% elif 'Jupiter' in planet.planet_type.name %}
           {% elif 'Neptune' in planet.planet_type.name %}
-          {% elif 'Gas' in planet.planet_type.name %}
-          {% else %}
-          <li>
             <b>Species:</b>
 
           <!-- If there are no species, do not add a list -->
@@ -80,14 +78,13 @@ Requires {{solar_system.name}} permit
           none
         </li>
           {% else %}
-
+          {% for species in planet.species.all %}
+{{species.name}}
+{%endfor%}
           <!-- List species -->
           <ul>
-          <li>
-            {{species.name}} - {{species.species_type}}
-          </li>
-          </ul>
-          {%endif%}
+            <li>{{species.name}} - {{species.species_type}}</li>
+          {%endif%}</ul>
           {% endfor %}
           {%endif%}
 
@@ -113,18 +110,15 @@ Requires {{solar_system.name}} permit
                       <li>Population: {{station.population}}</li>
                       <li>Economy: {{station.economy}}</li>
                       <li>Government: {{station.faction.government_type}}</li>
-                      <li>Controlling faction: {{station.faction.name}}</li>
-                      <li><b>Services:</b></li>
                       <ul>
                       {% for service in station.services.all %}
                         <li>{{service.name}}</li>
                       {% endfor %}
                       </ul>
-                    </ul>
                 {% endfor %}
               </ul>
                 {% endif%}
-
+</ul
               {% endif %}
             {% endfor %}
 
@@ -135,6 +129,116 @@ Requires {{solar_system.name}} permit
       {% endif %}
     </ul><hr>
 {% endfor %}
-</ul>
+</table>
+<table style="width:300px; cell_padding=10px; cell_spacing=5">
+  <thead>
+
+      {% for star in star_list %}<tr>
+      <td><table  style="width:300px; cell_padding=10px; cell_spacing=5">
+        <thead>
+          <tr>
+            <th colspan="2">{{star.name}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for planet in star.planet_list %}
+          <table border style="width:800px;">
+          <tr>
+            <tr>
+              <table border="1" width=500>
+              <th colspan=3>
+                {{planet.name}}
+              </th>
+            </tr>
+            <tr>
+              <td width=50% valign="top"><table border="1" width=100%>
+                <tr>
+                  <td width=33%>Orbital radius</td>
+                  <td width=33%>{{planet.orbital_radius_in_au}}</td>
+                </tr>
+                <tr>
+                  <td width=33%>Orbital period</td>
+                  <td width=33%>{{planet.orbital_period_in_years}}</td>
+                </tr>
+              </table></td>
+
+              {% if planet.station_set.all %}
+              <td>{% for station in planet.station_set.all %}
+              <table border="1" width="250">
+                <tr>
+                <th colspan=3>{{station.name}}</th>
+                </tr>
+                <tr>
+                <td>column 1</td>
+                <td>column 1</td>
+              </tr>
+            </table>{% endfor %}
+              </tr>
+            </td>{% endif %}
+            </tr>
+              </table>
+              </tr>
+          </table>
+
+            <!-- <td>
+              <table border style="width:300px;">
+                <thead>
+                  <tr>
+                    <th colspan="2">{{planet.name}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Orbital radius</td><td width=150px>{{planet.orbital_radius_in_au}} au</td></tr>
+                  <tr><td>Orbital period</td><td width=150px>{{planet.orbital_period_in_years}} years</td></tr>
+                  <tr><td>Mass</td><td width=150px>{{planet.earth_masses}} Me</td></tr>
+                  <tr><td>Radius</td><td width=150px>{{planet.earth_radii}} Re</td></tr>
+                  <tr><td>Temperature</td><td width=150px>{{planet.temperature_in_kelvin}} K</td></tr>
+                  <tr><td>Planet Type</td><td width=150px>{{planet.planet_type}}</td></tr>
+                </tbody>
+                <td> -->
+              <!-- </table> -->
+            </td>
+          </tr><tr><td> </td></tr></table>{% endfor %}
+        </tbody>
+      </table></td></tr><tr><td> &nbsp; &nbsp; </td></tr><tr><td> &nbsp; &nbsp; </td></tr>
+    {%endfor%}
+  </thead>
+  </table>
+
+  <table border="1">
+    <!-- <tr>
+    <th>The main heading
+    </th>
+    </tr> -->
+    <tr>
+      <table border="1">
+      <th colspan=3>
+        The planet
+      </th>
+    </tr>
+    <tr>
+      <td>column 1</td>
+      <td>column 2</td>
+      <td>
+      <table border="1">
+        <tr>
+        <th colspan=3>Station</th>
+        </tr>
+        <tr>
+        <td>column 1</td>
+        <td>column 1</td>
+        <td>column 1</td>
+      </tr>
+        </table>
+      </tr>
+      </td>
+    </tr>
+      </table>
+      </tr>
+  </table>
+
 </body>
+
+
+
 </html>
