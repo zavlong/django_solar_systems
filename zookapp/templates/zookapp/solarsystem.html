@@ -70,23 +70,21 @@ Requires {{solar_system.name}} permit
           {% elif 'Molten' in planet.planet_type.name %}
           {% elif 'Jupiter' in planet.planet_type.name %}
           {% elif 'Neptune' in planet.planet_type.name %}
+          {% else %}
             <b>Species:</b>
 
+{% endif %}
           <!-- If there are no species, do not add a list -->
           {% for species in planet.species.all %}
           {% if 'none' in species.name %}
           none
-        </li>
           {% else %}
-          {% for species in planet.species.all %}
-{{species.name}}
-{%endfor%}
+
           <!-- List species -->
           <ul>
-            <li>{{species.name}} - {{species.species_type}}</li>
-          {%endif%}</ul>
-          {% endfor %}
+            <li>{{species.name}} - {{species.species_type}}</li></ul>
           {%endif%}
+          {% endfor %}
 
           <li>Planet Type: {{planet.planet_type}}</li>
           {% if planet.ring_type %}
@@ -110,22 +108,23 @@ Requires {{solar_system.name}} permit
                       <li>Population: {{station.population}}</li>
                       <li>Economy: {{station.economy}}</li>
                       <li>Government: {{station.faction.government_type}}</li>
+                      <li>Controlling faction: {{station.faction.name}}</li>
                       <ul>
                       {% for service in station.services.all %}
                         <li>{{service.name}}</li>
                       {% endfor %}
-                      </ul>
+                      </ul></ul>
                 {% endfor %}
-              </ul>
+
                 {% endif%}
-</ul
+              </ul>
               {% endif %}
             {% endfor %}
 
 
         </ul><br>
         {% endfor %}
-      </ul><br>
+      <br>
       {% endif %}
     </ul><hr>
 {% endfor %}
@@ -154,11 +153,19 @@ Requires {{solar_system.name}} permit
               <td width=50% valign="top"><table border="1" width=100%>
                 <tr>
                   <td width=33%>Orbital radius</td>
-                  <td width=33%>{{planet.orbital_radius_in_au}}</td>
+                  <td width=33%>{{planet.orbital_radius_in_au}} au</td>
                 </tr>
                 <tr>
                   <td width=33%>Orbital period</td>
-                  <td width=33%>{{planet.orbital_period_in_years}}</td>
+                  <td width=33%>{{planet.orbital_period_in_years}} years</td>
+                </tr>
+                <tr>
+                  <td width=33%>Mass</td>
+                  <td width=33%>{{planet.earth_masses}} Me</td>
+                </tr>
+                <tr>
+                  <td width=33%>Radius</td>
+                  <td width=33%>{{planet.earth_radii}} Re</td>
                 </tr>
               </table></td>
 

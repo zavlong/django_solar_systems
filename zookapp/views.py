@@ -82,7 +82,7 @@ def solar_system(request, solarsystem_id):
     star_list = solar_system.star_set.all()
     for s in star_list:
         k = 1/s.solar_masses
-        s.orbital_period_in_years = round(math.sqrt(((float(k)**2 * (float(s.solar_masses)))*(float(s.orbital_radius_in_au)**3))),3)
+        #s.orbital_period_in_years = round(math.sqrt(((float(k)**2 * (float(s.solar_masses)))*(float(s.orbital_radius_in_au)**3))),3)
         s.star_color = star_color_gen(s.temperature_in_kelvin)[0]
         s.text_color = star_color_gen(s.temperature_in_kelvin)[1]
         s.planet_list = s.planet_set.all()

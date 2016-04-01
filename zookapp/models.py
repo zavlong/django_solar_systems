@@ -87,6 +87,10 @@ class SpectralType(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ('name',)
+
+
 class Star(models.Model):
     name = models.CharField(max_length=200)
     orbital_radius_in_au = models.DecimalField(decimal_places=3, max_digits=20, null=True)
