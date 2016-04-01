@@ -1,5 +1,6 @@
 from django.db import models
 from mezzanine.pages.models import Page
+from mezzanine.core.models import Displayable
 import math
 
 # Create your models here.
@@ -22,7 +23,7 @@ class Galaxy(models.Model):
     class Meta:
         ordering = ('distance',)
 
-class SolarSystem(models.Model):
+class SolarSystem(Displayable):
     name = models.CharField(max_length=200)
     x_coord = models.DecimalField(decimal_places=3, max_digits=20) #decimal_places=3,
     y_coord = models.DecimalField(decimal_places=3, max_digits=20)
