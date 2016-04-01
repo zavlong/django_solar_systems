@@ -72,19 +72,20 @@ Requires {{solar_system.name}} permit
           {% elif 'Neptune' in planet.planet_type.name %}
           {% else %}
             <b>Species:</b>
+            <!-- If there are no species, do not add a list -->
+            {% for species in planet.species.all %}
+            {% if 'none' in species.name %}
+            none
+            {% else %}
 
-{% endif %}
-          <!-- If there are no species, do not add a list -->
-          {% for species in planet.species.all %}
-          {% if 'none' in species.name %}
-          none
-          {% else %}
+            <!-- List species -->
+            <ul>
+              <li>{{species.name}} - {{species.species_type}}</li></ul>
+            {%endif%}
+            {% endfor %}
+          {% endif %}
 
-          <!-- List species -->
-          <ul>
-            <li>{{species.name}} - {{species.species_type}}</li></ul>
-          {%endif%}
-          {% endfor %}
+          
 
           <li>Planet Type: {{planet.planet_type}}</li>
           {% if planet.ring_type %}

@@ -71,9 +71,6 @@ urlpatterns += [
     url(r'^spaceships/$', spindex, name='spaceships'),
     url(r'^solar_system/(?P<solarsystem_id>[0-9]+)/$', solar_system, name='solar_system'),
     url(r'^spaceship/(?P<ship_id>[0-9]+)/$', spaceship, name='spaceship'),
-    url(r'^solar_system/(?P<solarsystem_id>[0-9]+)/(?P<star_id>[0-9]+)/$', star, name='star'),
-    url(r'^solar_system/(?P<solarsystem_id>[0-9]+)/(?P<star_id>[0-9]+)/(?P<planet_id>[0-9]+)/$', planet, name='planet'),
-    url(r'^solar_system/(?P<solarsystem_id>[0-9]+)/(?P<star_id>[0-9]+)/(?P<planet_id>[0-9]+)/edit/$', edit_planet, name='edit_planet'),
 
     # MEZZANINE'S URLS
     # ----------------

@@ -96,11 +96,5 @@ def spaceship(request, ship_id):
     spaceship = Spaceship.objects.get(pk=ship_id)
     return render(request, 'zookapp/spaceship.html', {'spaceship': spaceship})
 
-def star(request, solarsystem_id, star_id):
-    return render(request, 'zookapp/star.html')
-
-def planet(request, solarsystem_id, star_id, planet_id):
-    return render(request, 'zookapp/planet.html')
-
-def edit_planet(request, solarsystem_id, star_id, planet_id):
-    return render(request, 'zookapp/edit_planet.html')
+for h in Hof.objects.order_by('name'):
+    print(h.solarsystem_set.all())

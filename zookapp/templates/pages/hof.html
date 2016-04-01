@@ -1,0 +1,37 @@
+{% extends "pages/page.html" %}
+
+{% block main %}
+<!--
+This template is provided as a custom template for the homepage, for
+when it is configured as an editable page in the navigation tree. Feel
+free to modify it.
+-->
+{{ block.super }}
+<!-- <br>
+<ul>
+<table>
+  <tr>
+    {% for allegiance in allegiance_list %}
+      <td style="background-color: #{{allegiance.color}}">{{allegiance.abbreviation}}</td>
+    {% endfor %}
+    <td style="background-color: #fff">Uninhabited</td>
+  </tr>
+</table>
+<br> -->
+<!-- <h4>{{page.hof.name}}, {{page.hof.distance}} ly away</h4><br>
+{% for star in page.hof.solar_system_set.all %}
+  <li style="background-color: #{{star.allegiance.color}}">
+    <a href="/solar_system/{{star.id}}/">{{star.name}}</a> - {{star.distance}} ly {% if 'Y' in star.permit.name %}- Requires {{star.name}} permit {% endif %}
+  </li>
+<hr>
+<p>test</p>
+{% endfor%}
+<p>test</p>
+
+</ul> -->
+<h1>{{ page.hof.name }}</h1>
+<p>{{ page.hof.distance }}</p>
+{% for system in page.hof.solarsystem_set.all %}
+<p>{{system.name}}</p>
+{% endfor %}
+{% endblock %}

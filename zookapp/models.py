@@ -3,6 +3,13 @@ from mezzanine.pages.models import Page
 import math
 
 # Create your models here.
+class Hof(Page):
+    name = models.CharField(max_length=200)
+    distance = models.DecimalField(decimal_places=3, max_digits=20)
+    reference_point = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
 
 class Galaxy(models.Model):
     name = models.CharField(max_length=200)
@@ -21,6 +28,7 @@ class SolarSystem(models.Model):
     y_coord = models.DecimalField(decimal_places=3, max_digits=20)
     z_coord = models.DecimalField(decimal_places=3, max_digits=20)
     galaxy = models.ForeignKey('Galaxy', on_delete=models.CASCADE, default=1)
+    hof = models.ForeignKey('Hof', on_delete=models.CASCADE, default=4)
     security = models.ForeignKey('SystemSecurity', on_delete=models.CASCADE, blank=True, null=True)
     allegiance = models.ForeignKey('SystemAllegiance', on_delete=models.CASCADE, blank=True, null=True)
     faction = models.ForeignKey('StationFaction', on_delete=models.CASCADE, blank=True, null=True)
@@ -75,7 +83,7 @@ class ShipCreator(models.Model):
 
     def __str__(self):
         return self.name
-        
+
 class ShipType(models.Model):
     name = models.CharField(max_length=200)
 
@@ -96,7 +104,7 @@ class Star(models.Model):
     orbital_radius_in_au = models.DecimalField(decimal_places=3, max_digits=20, null=True)
     orbital_period_in_years = models.DecimalField(decimal_places=3, max_digits=20, null=True) # can be calculated - kepler's 3rd law
     solar_radii = models.DecimalField(decimal_places=3, max_digits=7, default=1)
-    solar_masses = models.DecimalField(decimal_places=3, max_digits=6, default=1)
+    solar_masses = models.DecimalField(decimal_places=3, max_digits=10, default=1)
     temperature_in_kelvin = models.IntegerField(default=5700)
     solar_system = models.ForeignKey('SolarSystem', on_delete=models.CASCADE, blank=True, null=True)
     spectral_type = models.ForeignKey('SpectralType', on_delete=models.CASCADE, blank=True, null=True)

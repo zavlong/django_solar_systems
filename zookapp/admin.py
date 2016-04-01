@@ -1,4 +1,5 @@
 from django.contrib import admin
+from mezzanine.pages.admin import PageAdmin
 from .models import *
 # Register your models here.
 
@@ -28,3 +29,4 @@ admin.site.register(ShipSize, ZookAdmin)
 admin.site.register(SystemPermit, ZookAdmin)
 admin.site.register(ShipCreator, ZookAdmin)
 admin.site.register(Galaxy, ZookAdmin)
+admin.site.register(Hof, PageAdmin)
