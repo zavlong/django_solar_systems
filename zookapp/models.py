@@ -75,7 +75,7 @@ class ShipCreator(models.Model):
 
     def __str__(self):
         return self.name
-
+        
 class ShipType(models.Model):
     name = models.CharField(max_length=200)
 
